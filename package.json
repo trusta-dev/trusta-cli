@@ -1,0 +1,41 @@
+{
+  "name": "trusta",
+  "version": "0.1.0",
+  "description": "Generate your trust page in minutes — npx trusta init",
+  "license": "MIT",
+  "bin": {
+    "trusta": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --max-warnings=0",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "trust",
+    "security",
+    "compliance",
+    "trusta"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trusta-dev/trusta-cli.git"
+  },
+  "homepage": "https://trusta.dev",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.5.0"
+  }
+}
