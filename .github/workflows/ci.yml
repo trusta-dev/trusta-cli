@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
 
+# Skip CI on semantic-release's back-merge commit
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
