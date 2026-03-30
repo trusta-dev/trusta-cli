@@ -1,9 +1,12 @@
+import { writeFileSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { detectProject } from '../detect';
 import {
   bootstrapWorkspace,
   createCollector,
   ingestEvidence,
   registerProjectRepo,
+  updateProject,
   type CliApiTransport,
 } from '../api';
 import { scanLocalDirectory } from '../scanner';
@@ -136,6 +139,67 @@ export async function init() {
       }
     } catch {
       printWarning('Security scan could not complete — you can trigger one from the dashboard.');
+    }
+
+    // Collect trust attestations
+    printDivider();
+    printStep(
+      'Declare trust attestations (improves your trust score — press enter to skip any).',
+    );
+
+    const privacyPolicyUrl = await prompter.ask('Privacy policy URL');
+    const securityContactEmail = await prompter.ask('Security contact email');
+
+    interface SubProcessorEntry {
+      name: string;
+      purpose: string;
+      location: string;
+    }
+    const subProcessors: SubProcessorEntry[] = [];
+    const addSp = await prompter.ask(
+      'Declare sub-processors (third-party services that process user data)? [y/N]',
+    );
+    if (addSp.toLowerCase() === 'y') {
+      let addingMore = true;
+      while (addingMore) {
+        const name = await prompter.ask('  Sub-processor name (e.g. Stripe)');
+        if (!name) break;
+        const purpose = await prompter.ask('  Purpose (e.g. Payment processing)');
+        const location = await prompter.ask('  Location (e.g. United States)');
+        if (name && purpose && location) {
+          subProcessors.push({ name, purpose, location });
+          printSuccess(`Added: ${name}`);
+        }
+        const another = await prompter.ask('  Add another? [y/N]');
+        addingMore = another.toLowerCase() === 'y';
+      }
+    }
+
+    // Persist attestations
+    const attestationUpdate: {
+      privacyPolicyUrl?: string | null;
+      securityContactEmail?: string | null;
+    } = {};
+    if (privacyPolicyUrl) attestationUpdate.privacyPolicyUrl = privacyPolicyUrl;
+    if (securityContactEmail) attestationUpdate.securityContactEmail = securityContactEmail;
+
+    if (Object.keys(attestationUpdate).length > 0) {
+      try {
+        await updateProject(transport, project.id, attestationUpdate);
+        printSuccess('Trust attestations saved.');
+      } catch {
+        printWarning('Could not save attestations — update them in the dashboard.');
+      }
+    }
+
+    if (subProcessors.length > 0) {
+      const trustaDir = join(cwd, '.trusta');
+      mkdirSync(trustaDir, { recursive: true });
+      const spPath = join(trustaDir, 'sub-processors.json');
+      writeFileSync(spPath, JSON.stringify(subProcessors, null, 2) + '\n');
+      printSuccess(
+        `Written .trusta/sub-processors.json (${subProcessors.length} sub-processor${subProcessors.length === 1 ? '' : 's'}) — commit this file to your repo.`,
+      );
     }
 
     // Output summary

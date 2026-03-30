@@ -100,6 +100,17 @@ export async function registerProjectRepo(
   return apiRequest(transport, 'POST', `/projects/${projectId}/repos`, { repoUrl });
 }
 
+export async function updateProject(
+  transport: CliApiTransport,
+  projectId: string,
+  input: {
+    privacyPolicyUrl?: string | null;
+    securityContactEmail?: string | null;
+  },
+): Promise<void> {
+  await apiRequest(transport, 'PATCH', `/projects/${projectId}`, input);
+}
+
 export async function getMe(
   transport: CliApiTransport,
 ): Promise<{ user: { id: string; name: string } }> {
