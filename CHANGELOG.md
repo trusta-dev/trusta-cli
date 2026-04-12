@@ -1,3 +1,10 @@
+## [0.4.2](https://github.com/trusta-dev/trusta-cli/compare/v0.4.1...v0.4.2) (2026-04-12)
+
+
+### Bug Fixes
+
+* correct trust page URL — remove /trust/ prefix, use appUrl not hardcoded default ([fbf3b0d](https://github.com/trusta-dev/trusta-cli/commit/fbf3b0d88edf630e6a225333d3d78e4df6bd6626))
+
 ## [0.4.1](https://github.com/trusta-dev/trusta-cli/compare/v0.4.0...v0.4.1) (2026-04-12)
 
 
