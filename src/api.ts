@@ -12,7 +12,14 @@ async function apiRequest<T>(
   method: 'GET' | 'POST' | 'PATCH',
   path: string,
   body?: unknown,
+  query?: Record<string, string>,
 ): Promise<T> {
+  const url = new URL(`${transport.baseUrl}${path}`);
+  if (query) {
+    for (const [k, v] of Object.entries(query)) {
+      url.searchParams.set(k, v);
+    }
+  }
   const init: RequestInit = {
     method,
     headers: {
@@ -23,7 +30,7 @@ async function apiRequest<T>(
   if (body !== undefined) {
     init.body = JSON.stringify(body);
   }
-  const response = await fetch(`${transport.baseUrl}${path}`, init);
+  const response = await fetch(url.toString(), init);
 
   const data = (await response.json()) as T | ApiError;
 
@@ -127,4 +134,21 @@ export async function createProject(
     '/projects',
     input,
   );
+}
+
+export async function getProjectByRepoUrl(
+  transport: CliApiTransport,
+  repoUrl: string,
+): Promise<{ project: { id: string; name: string; slug: string; organizationId: string } } | null> {
+  try {
+    return await apiRequest<{ project: { id: string; name: string; slug: string; organizationId: string } }>(
+      transport,
+      'GET',
+      '/projects/by-repo',
+      undefined,
+      { repoUrl },
+    );
+  } catch {
+    return null;
+  }
 }

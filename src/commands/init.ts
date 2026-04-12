@@ -6,6 +6,7 @@ import {
   createProject,
   createCollector,
   getMe,
+  getProjectByRepoUrl,
   ingestEvidence,
   registerProjectRepo,
   updateProject,
@@ -45,56 +46,73 @@ export async function init() {
 
     const transport: CliApiTransport = { baseUrl: apiUrl, token };
 
-    // Check if the user already belongs to a workspace
-    const me = await getMe(transport);
-    const existingOrg = me.organizations[0];
+    // Check if this repo is already linked to a project
+    let organization: { id: string; name: string } | undefined;
+    let project: { id: string; name: string; slug: string } | undefined;
+    let isExistingProject = false;
 
-    // Project name
-    const defaultProjectName = detection.projectName ?? undefined;
+    if (detection.githubRepoUrl) {
+      const existing = await getProjectByRepoUrl(transport, detection.githubRepoUrl);
+      if (existing) {
+        organization = { id: existing.project.organizationId, name: '' };
+        project = existing.project;
+        isExistingProject = true;
+        printSuccess(`Found existing project "${project.name}" linked to this repo.`);
+      }
+    }
 
-    let organization: { id: string; name: string };
-    let project: { id: string; name: string; slug: string };
+    if (!isExistingProject) {
+      const me = await getMe(transport);
+      const existingOrg = me.organizations[0];
+      const defaultProjectName = detection.projectName ?? undefined;
+
+      printDivider();
+
+      if (existingOrg) {
+        // Existing user — add a project to their workspace
+        printStep(`Adding project to workspace "${existingOrg.name}"...`);
+        const projectName = await prompter.ask('Project name', defaultProjectName);
+        if (!projectName) {
+          throw new Error('Project name is required.');
+        }
+        organization = existingOrg;
+        const result = await createProject(transport, {
+          organizationId: existingOrg.id,
+          name: projectName,
+        });
+        project = result.project;
+        printSuccess(`Project "${project.name}" created`);
+      } else {
+        // New user — full workspace bootstrap
+        const defaultWorkspaceName = detection.projectName
+          ? toTitleCase(detection.projectName)
+          : undefined;
+        printStep('Name your workspace (your company or app name).');
+        const workspaceName = await prompter.ask('Workspace name', defaultWorkspaceName);
+        if (!workspaceName) {
+          throw new Error('Workspace name is required.');
+        }
+        const projectName = await prompter.ask('First project name', defaultProjectName);
+        if (!projectName) {
+          throw new Error('Project name is required.');
+        }
+        printStep('Creating workspace and project...');
+        const bootstrapped = await bootstrapWorkspace(transport, {
+          workspaceName,
+          projectName,
+        });
+        organization = bootstrapped.organization;
+        project = bootstrapped.project;
+        printSuccess(`Workspace "${organization.name}" created`);
+        printSuccess(`Project "${project.name}" created`);
+      }
+    }
+
+    if (!project) {
+      throw new Error('No project resolved.');
+    }
 
     printDivider();
-
-    if (existingOrg) {
-      // Existing user — add a project to their workspace
-      printStep(`Adding project to workspace "${existingOrg.name}"...`);
-      const projectName = await prompter.ask('Project name', defaultProjectName);
-      if (!projectName) {
-        throw new Error('Project name is required.');
-      }
-      organization = existingOrg;
-      const result = await createProject(transport, {
-        organizationId: existingOrg.id,
-        name: projectName,
-      });
-      project = result.project;
-      printSuccess(`Project "${project.name}" created`);
-    } else {
-      // New user — full workspace bootstrap
-      const defaultWorkspaceName = detection.projectName
-        ? toTitleCase(detection.projectName)
-        : undefined;
-      printStep('Name your workspace (your company or app name).');
-      const workspaceName = await prompter.ask('Workspace name', defaultWorkspaceName);
-      if (!workspaceName) {
-        throw new Error('Workspace name is required.');
-      }
-      const projectName = await prompter.ask('First project name', defaultProjectName);
-      if (!projectName) {
-        throw new Error('Project name is required.');
-      }
-      printStep('Creating workspace and project...');
-      const bootstrapped = await bootstrapWorkspace(transport, {
-        workspaceName,
-        projectName,
-      });
-      organization = bootstrapped.organization;
-      project = bootstrapped.project;
-      printSuccess(`Workspace "${organization.name}" created`);
-      printSuccess(`Project "${project.name}" created`);
-    }
 
     // Create GitHub Actions collector
     printStep('Creating collector credential for GitHub Actions...');
