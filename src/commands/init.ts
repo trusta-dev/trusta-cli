@@ -224,7 +224,7 @@ export async function init() {
     }
 
     // Output summary
-    const trustUrl = `${DEFAULT_APP_URL}/trust/${project.slug}`;
+    const trustUrl = `${appUrl}/${project.slug}`;
 
     printSuccess('Setup complete!');
     printDivider();
