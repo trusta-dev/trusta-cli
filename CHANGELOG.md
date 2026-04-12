@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/trusta-dev/trusta-cli/compare/v0.2.0...v0.3.0) (2026-04-12)
+
+
+### Features
+
+* browser OAuth login flow with PKCE and token persistence ([03d78d7](https://github.com/trusta-dev/trusta-cli/commit/03d78d7082a932cfda61a130ebe94a3c9f879cc8))
+
 # [0.2.0](https://github.com/trusta-dev/trusta-cli/compare/v0.1.0...v0.2.0) (2026-03-30)
 
 
