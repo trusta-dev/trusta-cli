@@ -9,6 +9,7 @@ import {
   updateProject,
   type CliApiTransport,
 } from '../api';
+import { resolveToken } from '../auth';
 import { scanLocalDirectory } from '../scanner';
 import {
   printBanner,
@@ -35,15 +36,10 @@ export async function init() {
     const apiUrl = (process.env['TRUSTA_API_URL'] ?? DEFAULT_API_URL).replace(/\/$/, '');
     const appUrl = (process.env['TRUSTA_APP_URL'] ?? DEFAULT_APP_URL).replace(/\/$/, '');
 
-    // Resolve API token
-    let token = process.env['TRUSTA_API_TOKEN'] ?? '';
-    if (!token) {
-      printStep('Sign in at ' + appUrl + '/app/settings/tokens to get your API token.');
-      token = await prompter.ask('Paste your API token');
-      if (!token) {
-        throw new Error('API token is required. Set TRUSTA_API_TOKEN or enter it when prompted.');
-      }
-    }
+    // Resolve API token — browser login flow, silent refresh, or TRUSTA_API_TOKEN env override
+    printStep('Authenticating...');
+    const token = await resolveToken();
+    printSuccess('Authenticated.');
 
     const transport: CliApiTransport = { baseUrl: apiUrl, token };
 
