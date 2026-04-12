@@ -9,7 +9,7 @@ const AUTH_CALLBACK_PORT = 7429;
 const AUTH_CALLBACK_URI = `http://localhost:${AUTH_CALLBACK_PORT}/callback`;
 const DEFAULT_AUTH_DOMAIN = 'https://auth.trusta.dev';
 // Filled in after CDK AuthStack deploy — override with TRUSTA_COGNITO_CLI_CLIENT_ID for local dev.
-const DEFAULT_CLI_CLIENT_ID = 'REPLACE_AFTER_CDK_DEPLOY';
+const DEFAULT_CLI_CLIENT_ID = '5mksb84rlot54m2h5u67f8o9rc';
 const LOGIN_TIMEOUT_MS = 120_000;
 
 interface StoredAuth {
