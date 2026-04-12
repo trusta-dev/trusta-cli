@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/trusta-dev/trusta-cli/compare/v0.3.0...v0.4.0) (2026-04-12)
+
+
+### Features
+
+* set production Cognito CLI client ID ([dde93cd](https://github.com/trusta-dev/trusta-cli/commit/dde93cdaae8b37f9e8dd9d5132937f62504218eb))
+
 # [0.3.0](https://github.com/trusta-dev/trusta-cli/compare/v0.2.0...v0.3.0) (2026-04-12)
 
 
