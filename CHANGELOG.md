@@ -1,3 +1,10 @@
+## [0.4.3](https://github.com/trusta-dev/trusta-cli/compare/v0.4.2...v0.4.3) (2026-04-12)
+
+
+### Bug Fixes
+
+* detect existing project by repo URL before creating a new one ([f5b4144](https://github.com/trusta-dev/trusta-cli/commit/f5b41440d9273f29cd1ea98ebaab82aca4f5930e))
+
 ## [0.4.2](https://github.com/trusta-dev/trusta-cli/compare/v0.4.1...v0.4.2) (2026-04-12)
 
 
