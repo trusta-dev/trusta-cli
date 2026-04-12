@@ -113,6 +113,18 @@ export async function updateProject(
 
 export async function getMe(
   transport: CliApiTransport,
-): Promise<{ user: { id: string; name: string } }> {
-  return apiRequest<{ user: { id: string; name: string } }>(transport, 'GET', '/me');
+): Promise<{ user: { id: string; name: string }; organizations: Array<{ id: string; name: string; slug: string }> }> {
+  return apiRequest<{ user: { id: string; name: string }; organizations: Array<{ id: string; name: string; slug: string }> }>(transport, 'GET', '/me');
+}
+
+export async function createProject(
+  transport: CliApiTransport,
+  input: { organizationId: string; name: string },
+): Promise<{ project: { id: string; name: string; slug: string } }> {
+  return apiRequest<{ project: { id: string; name: string; slug: string } }>(
+    transport,
+    'POST',
+    '/projects',
+    input,
+  );
 }
