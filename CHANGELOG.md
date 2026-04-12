@@ -1,3 +1,10 @@
+## [0.4.1](https://github.com/trusta-dev/trusta-cli/compare/v0.4.0...v0.4.1) (2026-04-12)
+
+
+### Bug Fixes
+
+* handle existing workspace in init — skip bootstrap, add project to existing org ([738a441](https://github.com/trusta-dev/trusta-cli/commit/738a441dfe144a53afad86560a3aecb4f057fba7))
+
 # [0.4.0](https://github.com/trusta-dev/trusta-cli/compare/v0.3.0...v0.4.0) (2026-04-12)
 
 
