@@ -1,3 +1,10 @@
+## [0.4.4](https://github.com/trusta-dev/trusta-cli/compare/v0.4.3...v0.4.4) (2026-04-13)
+
+
+### Bug Fixes
+
+* improve network error messages — show hostname and underlying cause ([d8258da](https://github.com/trusta-dev/trusta-cli/commit/d8258dabd92ecc4cf2a07c661f57757e1e93bd3f))
+
 ## [0.4.3](https://github.com/trusta-dev/trusta-cli/compare/v0.4.2...v0.4.3) (2026-04-12)
 
 
