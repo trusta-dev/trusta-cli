@@ -6,7 +6,11 @@ const [, , command = 'init'] = process.argv;
 if (command === 'init') {
   init().catch((error: unknown) => {
     const message = error instanceof Error ? error.message : String(error);
-    process.stderr.write(`\nError: ${message}\n`);
+    const cause =
+      error instanceof Error && error.cause instanceof Error
+        ? error.cause.message
+        : null;
+    process.stderr.write(`\nError: ${message}${cause ? `\nCause: ${cause}` : ''}\n`);
     process.exit(1);
   });
 } else {
