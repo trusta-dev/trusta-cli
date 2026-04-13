@@ -30,7 +30,15 @@ async function apiRequest<T>(
   if (body !== undefined) {
     init.body = JSON.stringify(body);
   }
-  const response = await fetch(url.toString(), init);
+  let response: Response;
+  try {
+    response = await fetch(url.toString(), init);
+  } catch (err) {
+    const cause = err instanceof Error ? err.cause : null;
+    const detail =
+      cause instanceof Error ? ` (${cause.message})` : '';
+    throw new Error(`Could not reach ${url.hostname}${detail}`);
+  }
 
   const data = (await response.json()) as T | ApiError;
 
