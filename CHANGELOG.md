@@ -1,3 +1,15 @@
+# [0.5.0](https://github.com/trusta-dev/trusta-cli/compare/v0.4.3...v0.5.0) (2026-05-07)
+
+
+### Bug Fixes
+
+* improve network error messages — show hostname and underlying cause ([d8258da](https://github.com/trusta-dev/trusta-cli/commit/d8258dabd92ecc4cf2a07c661f57757e1e93bd3f))
+
+
+### Features
+
+* **scanner:** sync all 19 OWASP rules and new count fields from platform ([46474bb](https://github.com/trusta-dev/trusta-cli/commit/46474bbe491ae9b008c9ee206b8785bbc6a4b7b4))
+
 ## [0.4.4](https://github.com/trusta-dev/trusta-cli/compare/v0.4.3...v0.4.4) (2026-04-13)
 
 
