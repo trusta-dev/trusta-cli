@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/trusta-dev/trusta-cli/compare/v0.5.0...v0.5.1) (2026-05-10)
+
+
+### Bug Fixes
+
+* use trusta-dev/trusta-action@v1 and update agent prompt ([ddba977](https://github.com/trusta-dev/trusta-cli/commit/ddba977baa3d9dc2db73c65a57264f18807c5246))
+
 # [0.5.0](https://github.com/trusta-dev/trusta-cli/compare/v0.4.3...v0.5.0) (2026-05-07)
 
 
