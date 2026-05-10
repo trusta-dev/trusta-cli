@@ -283,23 +283,30 @@ function buildGitHubActionsYaml(
   projectId: string,
   repoUrl?: string,
 ): string {
-  const repoLine = repoUrl ? `        repo_url: '${repoUrl}'\n` : '';
-  return `- name: Report to Trusta
-  uses: trusta/trusta-action@v1
+  const repoLine = repoUrl ? `          repo_url: '${repoUrl}'\n` : '';
+  const apiLine = apiUrl !== 'https://api.trusta.dev' ? `          api_url: '${apiUrl}'\n` : '';
+  return `- name: Trusta
+  uses: trusta-dev/trusta-action@v1
   with:
-    api_url: '${apiUrl}'
-    project_id: '${projectId}'
+${apiLine}          project_id: '${projectId}'
 ${repoLine}  env:
     TRUSTA_COLLECTOR_SECRET: \${{ secrets.TRUSTA_COLLECTOR_SECRET }}
-    # Secret value (save as GitHub Actions secret):
+    # Save this as a GitHub Actions secret named TRUSTA_COLLECTOR_SECRET:
     # ${secret}`;
 }
 
 function buildAgentPrompt(secret: string, apiUrl: string, projectId: string): string {
-  return `Set up Trusta evidence collection for this project.
+  return `Set up Trusta trust signal reporting for this project.
+
 API URL: ${apiUrl}
 Project ID: ${projectId}
 Collector secret: ${secret}
-Add TRUSTA_COLLECTOR_SECRET=${secret} to CI environment variables.
-Then call POST ${apiUrl}/ingest/evidence with Bearer auth on each deploy.`;
+
+Add TRUSTA_COLLECTOR_SECRET=${secret} as a CI secret, then add this step to your GitHub Actions workflow:
+
+- uses: trusta-dev/trusta-action@v1
+  with:
+    project_id: '${projectId}'
+  env:
+    TRUSTA_COLLECTOR_SECRET: \${{ secrets.TRUSTA_COLLECTOR_SECRET }}`;
 }
