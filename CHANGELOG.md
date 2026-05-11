@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/trusta-dev/trusta-cli/compare/v0.5.1...v0.6.0) (2026-05-11)
+
+
+### Features
+
+* remove sub-processors.json, update action yaml to use collector_secret ([0f15755](https://github.com/trusta-dev/trusta-cli/commit/0f15755cd3e34d5492bf9f2059bffb1a933d1475))
+
 ## [0.5.1](https://github.com/trusta-dev/trusta-cli/compare/v0.5.0...v0.5.1) (2026-05-10)
 
 
