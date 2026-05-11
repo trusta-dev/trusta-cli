@@ -44,8 +44,6 @@ You'll be prompted for:
 | Variable | Description |
 |---|---|
 | `TRUSTA_API_TOKEN` | Skip the token prompt in CI |
-| `TRUSTA_API_URL` | Override API base URL (default: `https://api.trusta.dev`) |
-| `TRUSTA_APP_URL` | Override app base URL (default: `https://app.trusta.dev`) |
 
 ## How the security score works
 

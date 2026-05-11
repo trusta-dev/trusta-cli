@@ -23,8 +23,8 @@ import {
 } from '../output';
 import { createPrompter } from '../prompt';
 
-const DEFAULT_API_URL = 'https://api.trusta.dev';
-const DEFAULT_APP_URL = 'https://app.trusta.dev';
+const API_URL = 'https://api.trusta.dev';
+const APP_URL = 'https://app.trusta.dev';
 
 export async function init() {
   printBanner();
@@ -33,9 +33,8 @@ export async function init() {
   const prompter = createPrompter();
 
   try {
-    // Resolve API base URL
-    const apiUrl = (process.env['TRUSTA_API_URL'] ?? DEFAULT_API_URL).replace(/\/$/, '');
-    const appUrl = (process.env['TRUSTA_APP_URL'] ?? DEFAULT_APP_URL).replace(/\/$/, '');
+    const apiUrl = API_URL;
+    const appUrl = APP_URL;
 
     // Resolve API token — browser login flow, silent refresh, or TRUSTA_API_TOKEN env override
     printStep('Authenticating...');
