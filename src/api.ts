@@ -144,6 +144,66 @@ export async function createProject(
   );
 }
 
+export interface ScanJobRecord {
+  readonly id: string;
+  readonly scanType: 'code' | 'live_site';
+  readonly repoUrl: string | null;
+  readonly commitSha: string | null;
+  readonly status: 'pending' | 'running' | 'completed' | 'failed';
+  readonly findingsCount: number | null;
+  readonly criticalCount: number | null;
+  readonly highCount: number | null;
+  readonly liveSiteUrl: string | null;
+  readonly createdAt: string;
+  readonly completedAt: string | null;
+}
+
+export interface SecurityFinding {
+  readonly findingId: string;
+  readonly ruleId: string;
+  readonly title: string;
+  readonly severity: 'critical' | 'high' | 'medium' | 'low' | 'info';
+  readonly filePath: string;
+  readonly lineNumber: number;
+  readonly snippet: string;
+  readonly fix: string;
+}
+
+export interface EvaluationRecord {
+  readonly state: 'pass' | 'fail' | 'stale' | 'degraded';
+  readonly control: { readonly id: string; readonly publicName: string };
+}
+
+export async function listProjectScans(
+  transport: CliApiTransport,
+  projectId: string,
+): Promise<ScanJobRecord[]> {
+  const result = await apiRequest<{ scans: ScanJobRecord[] }>(
+    transport, 'GET', `/projects/${projectId}/scans`,
+  );
+  return result.scans;
+}
+
+export async function getProjectScan(
+  transport: CliApiTransport,
+  projectId: string,
+  scanId: string,
+): Promise<{ job: ScanJobRecord; findings: SecurityFinding[] | null }> {
+  return apiRequest<{ job: ScanJobRecord; findings: SecurityFinding[] | null }>(
+    transport, 'GET', `/projects/${projectId}/scans/${scanId}`,
+  );
+}
+
+export async function listProjectEvaluations(
+  transport: CliApiTransport,
+  projectId: string,
+): Promise<EvaluationRecord[]> {
+  const result = await apiRequest<{ evaluations: EvaluationRecord[] }>(
+    transport, 'GET', `/projects/${projectId}/evaluations`,
+  );
+  return result.evaluations;
+}
+
 export async function getProjectByRepoUrl(
   transport: CliApiTransport,
   repoUrl: string,

@@ -12,7 +12,9 @@ If not authenticated, tell the user to run `/trusta-setup` first.
 
 ### 2. Fetch status
 
-Run: `trusta status` (or `npx trusta status --json`)
+Run: `trusta status --json` (or `npx trusta status --json`)
+
+The JSON output contains: `project`, `score`, `latestScan` (with `criticalCount`, `highCount`, `findingsCount`, `findings`), and `checks` (pass/fail/stale counts).
 
 Extract and display:
 - Project name and trust page URL

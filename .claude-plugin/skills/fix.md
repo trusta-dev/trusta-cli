@@ -12,23 +12,18 @@ Fix all critical and high findings. Medium/low/info only if score is already 100
 
 ### 1. Resolve the project
 
-Get the git remote: `git remote get-url origin`
+Run: `trusta project resolve --json` (or `npx trusta project resolve --json`)
 
-Run: `trusta project resolve` (or `npx trusta project resolve`)
+This returns `{ id, name, slug }` for the Trusta project linked to the current repo's git remote.
 
-If the command is not available, run: `trusta status` and extract the project ID from the output.
-
-If the project cannot be resolved, ask the user to run `/trusta-setup` first.
+If the command exits with an error, ask the user to run `/trusta-setup` first.
 
 ### 2. Fetch latest scan findings
 
-Run: `trusta scan latest` (or `npx trusta scan latest --json`)
+Run: `trusta scan latest --json` (or `npx trusta scan latest --json`)
 
-If the CLI does not support this, fetch findings via the API:
-```
-trusta scan list --json
-```
-Take the first completed scan. Extract all findings with severity `critical` or `high`.
+This returns a JSON object with `job` (scan metadata) and `findings` (array of finding objects).
+Extract all findings with severity `critical` or `high`.
 
 If there are no completed scans, tell the user to run a scan first from the dashboard or by pushing a commit, then re-run `/trusta-fix`.
 
