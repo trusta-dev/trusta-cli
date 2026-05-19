@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/trusta-dev/trusta-cli/compare/v0.7.0...v0.8.0) (2026-05-19)
+
+
+### Features
+
+* **cli:** add whoami, auth, status, project resolve, scan list/latest commands ([47db86e](https://github.com/trusta-dev/trusta-cli/commit/47db86e9f5c2658492e7b8e5be7bf75897d1832d))
+
 # [0.7.0](https://github.com/trusta-dev/trusta-cli/compare/v0.6.0...v0.7.0) (2026-05-19)
 
 
