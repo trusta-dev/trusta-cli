@@ -1,0 +1,24 @@
+{
+  "name": "trusta",
+  "version": "1.0.0",
+  "description": "Set up Trusta trust signals, fix security findings, and check your trust score — directly from Claude Code.",
+  "author": "Trusta <hello@trusta.dev>",
+  "repository": "https://github.com/trusta-dev/trusta-cli",
+  "skills": [
+    {
+      "name": "trusta-setup",
+      "description": "Set up Trusta for this project: authenticate, create workspace/project/collector, write GitHub Actions workflow. Run trusta init then write the workflow file.",
+      "file": "skills/setup.md"
+    },
+    {
+      "name": "trusta-fix",
+      "description": "Pull the latest Trusta security scan for this repo, fix the critical and high findings in code to maximise the trust score, then open a PR.",
+      "file": "skills/fix.md"
+    },
+    {
+      "name": "trusta-status",
+      "description": "Show the current Trusta trust score, latest scan results, and check states for this project.",
+      "file": "skills/status.md"
+    }
+  ]
+}
