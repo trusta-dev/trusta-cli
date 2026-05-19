@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/trusta-dev/trusta-cli/compare/v0.6.0...v0.7.0) (2026-05-19)
+
+
+### Features
+
+* **plugin:** add Claude Code plugin for Trusta setup and security fixes ([35307d9](https://github.com/trusta-dev/trusta-cli/commit/35307d93fb0c2e25ff2deb1757fe62a4e51ee1cf))
+
 # [0.6.0](https://github.com/trusta-dev/trusta-cli/compare/v0.5.1...v0.6.0) (2026-05-11)
 
 
