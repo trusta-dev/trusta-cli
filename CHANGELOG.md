@@ -1,3 +1,10 @@
+# [0.9.0](https://github.com/trusta-dev/trusta-cli/compare/v0.8.0...v0.9.0) (2026-05-19)
+
+
+### Features
+
+* **plugin:** add Codex plugin manifest and marketplace catalog ([2999bfe](https://github.com/trusta-dev/trusta-cli/commit/2999bfea1e7aee316934b686c34984ef9993cb3b))
+
 # [0.8.0](https://github.com/trusta-dev/trusta-cli/compare/v0.7.0...v0.8.0) (2026-05-19)
 
 
