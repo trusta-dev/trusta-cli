@@ -1,0 +1,11 @@
+{
+  "name": "trusta",
+  "version": "1.0.0",
+  "description": "Trusta trust signal reporting — set up your project, fix security findings, and view your trust score from inside your editor.",
+  "author": "Trusta <hello@trusta.dev>",
+  "homepage": "https://trusta.dev",
+  "repository": "https://github.com/trusta-dev/trusta-cli",
+  "license": "MIT",
+  "keywords": ["security", "trust", "compliance", "ci", "github-actions"],
+  "skills": "./skills/"
+}

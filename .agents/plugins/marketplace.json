@@ -1,0 +1,20 @@
+{
+  "name": "trusta",
+  "interface": {
+    "displayName": "Trusta"
+  },
+  "plugins": [
+    {
+      "name": "trusta",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Security"
+    }
+  ]
+}
