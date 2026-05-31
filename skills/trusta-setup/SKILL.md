@@ -24,39 +24,33 @@ If the command fails or returns an error:
 - Wait for the user to complete authentication
 - Confirm success with `trusta whoami`
 
-### 3. Run trusta init
+### 3. Check if the project is already linked
 
-Run: `trusta init` (or `npx trusta init`)
+Run: `trusta project resolve --json` (or `npx trusta project resolve --json`)
 
-This will:
-- Create or link a workspace and project
-- Create a GitHub Actions collector credential
-- Link this repo to the project
-- Run a local security scan
-- Output the GitHub Actions YAML and the collector secret
+- If it succeeds and returns `{ id, name, slug }`, the repo is already linked. Skip to step 5 — do NOT run `trusta init`.
+- If it fails with a "not found" or "not linked" error, continue to step 4.
 
-Capture the full output. Extract:
-- The collector secret (labelled `TRUSTA_COLLECTOR_SECRET` in the output)
-- The GitHub Actions YAML block
+### 4. Run trusta init (only if not already linked)
 
-### 4. Write the GitHub Actions workflow
+`trusta init` is interactive — it prompts for workspace name, project name, etc. Do NOT run it yourself. Tell the user:
 
-Create `.github/workflows/trusta.yml` with the GitHub Actions YAML from step 3.
+> This repo isn't linked to a Trusta project yet. Run `trusta init` in your terminal to set it up, then come back and run `/trusta-setup` again.
 
-If `.github/workflows/trusta.yml` already exists, show the user the diff and ask before overwriting.
+Stop here and wait for the user to re-invoke the skill after completing init.
 
-### 5. Remind about the GitHub secret
+### 5. Check the GitHub Actions workflow
 
-Tell the user:
-> Add `TRUSTA_COLLECTOR_SECRET` as a GitHub Actions secret in your repo settings:
-> Settings → Secrets and variables → Actions → New repository secret
+Check whether `.github/workflows/trusta.yml` already exists.
 
-Show them the secret value from step 3.
+If it already exists, leave it as-is and tell the user it's in place.
+
+If it does not exist, tell the user:
+> The workflow file is missing. Get it from your Trusta dashboard under Setup, copy the YAML, and save it to `.github/workflows/trusta.yml`.
 
 ### 6. Done
 
 Report:
-- Project name and dashboard URL
-- Trust page URL
-- Whether the workflow file was written
-- Next step: push a commit to trigger the first automated scan
+- Project name and trust page URL (`https://trust.trusta.dev/[slug]`)
+- Whether the workflow file was written or already existed
+- Next step: add `TRUSTA_COLLECTOR_SECRET` as a GitHub Actions secret (Settings → Secrets and variables → Actions) if not already done, then push a commit to trigger a scan
