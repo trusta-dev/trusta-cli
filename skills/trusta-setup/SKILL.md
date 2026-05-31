@@ -29,15 +29,18 @@ If the command fails or returns an error:
 Run: `trusta project resolve --json` (or `npx trusta project resolve --json`)
 
 - If it succeeds and returns `{ id, name, slug }`, the repo is already linked. Skip to step 5 — do NOT run `trusta init`.
-- If it fails with a "not found" or "not linked" error, continue to step 4.
+- If it returns `{ "error": "not_linked" }`, continue to step 4.
 
-### 4. Run trusta init (only if not already linked)
+### 4. Link or create the project (only if not already linked)
 
-`trusta init` is interactive — it prompts for workspace name, project name, etc. Do NOT run it yourself. Tell the user:
+Ask the user: "Does this project already exist in your Trusta dashboard?"
 
-> This repo isn't linked to a Trusta project yet. Run `trusta init` in your terminal to set it up, then come back and run `/trusta-setup` again.
+**If yes** — ask them for the project ID (visible in the dashboard URL or Settings page), then run:
+`trusta project link <project-id>` (or `npx trusta project link <project-id>`)
 
-Stop here and wait for the user to re-invoke the skill after completing init.
+If that succeeds, continue to step 5.
+
+**If no** — tell the user to run `trusta init` in their terminal. It will prompt for a project name and create one. Come back and run `/trusta-setup` again once it completes. Do not run `trusta init` yourself — it is interactive.
 
 ### 5. Check the GitHub Actions workflow
 

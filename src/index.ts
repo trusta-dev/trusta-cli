@@ -2,7 +2,7 @@
 import { init } from './commands/init';
 import { whoami } from './commands/whoami';
 import { auth } from './commands/auth';
-import { projectResolve } from './commands/project';
+import { projectResolve, projectLink } from './commands/project';
 import { scanList, scanLatest } from './commands/scan';
 import { status } from './commands/status';
 
@@ -37,8 +37,10 @@ if (command === 'init') {
 } else if (command === 'project') {
   if (subcommand === 'resolve') {
     run(projectResolve([...rest, ...args.filter((a) => a === '--json')]));
+  } else if (subcommand === 'link') {
+    run(projectLink([...rest, ...args.filter((a) => a === '--json')]));
   } else {
-    die(`Unknown subcommand: project ${subcommand ?? ''}\nUsage: trusta project resolve [--json]`);
+    die(`Unknown subcommand: project ${subcommand ?? ''}\nUsage: trusta project resolve|link [--json]`);
   }
 } else if (command === 'scan') {
   if (subcommand === 'list') {
@@ -56,6 +58,7 @@ if (command === 'init') {
     `  trusta whoami [--json]         Show current user\n` +
     `  trusta status [--json]         Show trust score and scan summary\n` +
     `  trusta project resolve [--json] Resolve the Trusta project for this repo\n` +
+    `  trusta project link <id>        Link this repo to an existing project\n` +
     `  trusta scan list [--json]      List scans for this project\n` +
     `  trusta scan latest [--json]    Show latest scan with findings\n`,
   );
