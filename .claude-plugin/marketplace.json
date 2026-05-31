@@ -7,7 +7,10 @@
   "plugins": [
     {
       "name": "trusta",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "trusta-dev/trusta-cli"
+      },
       "description": "Set up Trusta trust signals, fix security findings, and check your trust score — directly from Claude Code."
     }
   ]
