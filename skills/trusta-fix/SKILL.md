@@ -1,3 +1,8 @@
+---
+name: trusta-fix
+description: Pull the latest Trusta security scan for this repo, fix the critical and high findings in code to maximise the trust score, then open a PR.
+---
+
 # trusta-fix
 
 Fix security findings from the latest Trusta scan to maximise the trust score, then open a PR.

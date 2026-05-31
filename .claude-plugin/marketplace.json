@@ -1,0 +1,14 @@
+{
+  "name": "trusta-cli",
+  "owner": {
+    "name": "Trusta",
+    "email": "hello@trusta.dev"
+  },
+  "plugins": [
+    {
+      "name": "trusta",
+      "source": ".",
+      "description": "Set up Trusta trust signals, fix security findings, and check your trust score — directly from Claude Code."
+    }
+  ]
+}

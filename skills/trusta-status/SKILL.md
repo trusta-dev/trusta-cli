@@ -1,3 +1,8 @@
+---
+name: trusta-status
+description: Show the current Trusta trust score, latest scan results, and check states for this project.
+---
+
 # trusta-status
 
 Show the current Trusta trust score, latest scan results, and check states for this project.

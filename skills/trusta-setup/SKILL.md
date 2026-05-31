@@ -1,3 +1,8 @@
+---
+name: trusta-setup
+description: Set up Trusta for this project — authenticate, create workspace/project/collector, write GitHub Actions workflow.
+---
+
 # trusta-setup
 
 Set up Trusta for this project. Authenticate, create workspace/project/collector, and write the GitHub Actions workflow file.
