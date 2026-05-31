@@ -33,14 +33,14 @@ Run: `trusta project resolve --json` (or `npx trusta project resolve --json`)
 
 ### 4. Link or create the project (only if not already linked)
 
-Ask the user: "Does this project already exist in your Trusta dashboard?"
+First, try to auto-link by running:
+`trusta project link` (or `npx trusta project link`)
 
-**If yes** — ask them for the project ID (visible in the dashboard URL or Settings page), then run:
-`trusta project link <project-id>` (or `npx trusta project link <project-id>`)
+This looks up all projects in your workspace and matches one by repo name automatically.
 
-If that succeeds, continue to step 5.
-
-**If no** — tell the user to run `trusta init` in their terminal. It will prompt for a project name and create one. Come back and run `/trusta-setup` again once it completes. Do not run `trusta init` yourself — it is interactive.
+- If it succeeds, continue to step 5.
+- If it prints "Could not auto-match", run `trusta project list` to see available projects, then run `trusta project link <slug>` with the matching slug.
+- If there are no projects at all, tell the user to run `trusta init` in their terminal to create one. Do not run `trusta init` yourself — it is interactive. Come back and run `/trusta-setup` again once it completes.
 
 ### 5. Check the GitHub Actions workflow
 

@@ -204,6 +204,18 @@ export async function listProjectEvaluations(
   return result.evaluations;
 }
 
+export async function listOrganizationProjects(
+  transport: CliApiTransport,
+  organizationId: string,
+): Promise<Array<{ id: string; name: string; slug: string }>> {
+  const result = await apiRequest<{ projects: Array<{ id: string; name: string; slug: string }> }>(
+    transport,
+    'GET',
+    `/organizations/${organizationId}/projects`,
+  );
+  return result.projects;
+}
+
 export async function getProjectByRepoUrl(
   transport: CliApiTransport,
   repoUrl: string,
