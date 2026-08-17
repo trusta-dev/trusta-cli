@@ -1,31 +1,19 @@
 {
-  "name": "trusta",
-  "version": "0.9.0",
-  "description": "Generate your trust page in minutes — npx trusta init",
+  "name": "trusta-monorepo",
+  "private": true,
   "license": "MIT",
-  "bin": {
-    "trusta": "dist/index.js"
-  },
-  "main": "dist/index.js",
-  "files": [
-    "dist",
-    "README.md"
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint src --max-warnings=0",
-    "prepublishOnly": "npm run build"
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
   },
   "engines": {
     "node": ">=18"
   },
-  "keywords": [
-    "trust",
-    "security",
-    "compliance",
-    "trusta"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/trusta-dev/trusta-cli.git"
@@ -33,14 +21,23 @@
   "homepage": "https://trusta.dev",
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.6",
     "@semantic-release/npm": "^13.1.5",
     "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "semantic-release": "^25.0.3",
-    "typescript": "^5.5.0"
+    "semantic-release-monorepo": "^8.0.2",
+    "typescript": "^5.5.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^3.2.4"
   }
 }

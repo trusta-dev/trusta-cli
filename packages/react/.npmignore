@@ -1,0 +1,7 @@
+src/
+test/
+*.config.mjs
+*.config.ts
+tsconfig*.json
+.releaserc.json
+node_modules/
