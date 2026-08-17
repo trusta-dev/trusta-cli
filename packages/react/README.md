@@ -24,7 +24,7 @@ from `@trusta/react/client`.
 | `project` | System slug. Required for everything except `TrustCenter`. |
 | `theme` | `light` (default) or `dark`. |
 | `className` | Passed through to the outer element. |
-| `baseUrl` | Override the API host. For self-hosting. |
+| `baseUrl` | Override where the published objects are read from. For self-hosting. |
 | `revalidateSeconds` | How long your framework may cache the reading. Default 300. |
 
 There is no state prop, and there will not be one. See below.
@@ -43,6 +43,20 @@ failing system is worse than no trust page, because it looks complete.
 **Render your documents.** Documents are gated, cookie-bound and served live.
 Nothing about them belongs in a component that renders on a page Trusta does
 not control.
+
+## How it reads
+
+These fetch **static JSON**, not an API:
+
+```
+https://trust.trusta.dev/public/o/{org}.json
+https://trust.trusta.dev/public/o/{org}/{project}.json
+```
+
+Every publish writes those objects; the components read them off the CDN. There
+is no application server between your homepage and your status, which is the
+point rather than an optimisation — your traffic is yours, and an embed should
+not put it on somebody else's compute.
 
 ## When Trusta is down
 
