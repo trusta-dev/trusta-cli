@@ -1,4 +1,3 @@
-import eslint from '@eslint/eslint-plugin';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(

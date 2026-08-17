@@ -1,0 +1,51 @@
+{
+  "name": "@trusta/react",
+  "version": "0.0.0",
+  "description": "Live trust status, rendered on your own site.",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src test --max-warnings=0",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "trust",
+    "security",
+    "compliance",
+    "trusta",
+    "react",
+    "embed"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trusta-dev/trusta-cli.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://trusta.dev",
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}

@@ -30,7 +30,19 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Release
+      # Released one package at a time, in dependency order. Each reads its own
+      # .releaserc.json, and semantic-release-monorepo narrows the commit range
+      # to commits that touched that package — so a CLI fix cannot bump the
+      # version of a package sitting in someone else's bundle.
+      - name: Release trusta
+        working-directory: packages/cli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+
+      - name: Release @trusta/react
+        working-directory: packages/react
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
