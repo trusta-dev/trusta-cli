@@ -4,11 +4,13 @@ on:
   push:
     branches: [main]
 
+# `id-token` is intentionally not granted. @semantic-release/npm treats an
+# available OIDC token as a signal to publish via npm trusted publishing, which
+# these packages are not configured for. Grant it once they are.
 permissions:
   contents: write
   issues: write
   pull-requests: write
-  id-token: write
 
 jobs:
   release:
