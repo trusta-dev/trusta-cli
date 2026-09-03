@@ -4,19 +4,14 @@ on:
   push:
     branches: [main]
 
-# No id-token. @semantic-release/npm v13 treats an available OIDC token as a
-# signal to publish through npm trusted publishing, and tries that before the
-# NPM_TOKEN. Neither package is configured for trusted publishing on npmjs.com,
-# so the exchange 404s and the run has been dying there since May 2026 —
-# `trusta` is still on 0.9.0 and @trusta/react has never been published at all.
-#
-# Withholding the permission makes the token the only path, which is what this
-# repository actually uses. Restore it once trusted publishing is configured for
-# both packages, which needs them to exist on the registry first.
 permissions:
   contents: write
   issues: write
   pull-requests: write
+  # npm trusted publishing. Each package needs a trusted publisher configured
+  # on npmjs.com pointing at this workflow; NPM_TOKEN remains the fallback for
+  # any package that does not have one.
+  id-token: write
 
 jobs:
   release:
@@ -31,6 +26,10 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # Trusted publishing needs a newer npm than Node 22 bundles.
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: npm ci
