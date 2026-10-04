@@ -14,7 +14,13 @@ permissions:
   id-token: write
 
 jobs:
-  release:
+  # Separate jobs, not separate steps in one job: a broken publish (bad auth,
+  # no trusted publisher configured yet, whatever) for one package must not
+  # stop the other from releasing. They used to be two steps in one job, which
+  # meant a CLI auth failure blocked every @trusta-dev/react release too —
+  # the opposite of the independence semantic-release-monorepo already gives
+  # per package by narrowing each one's commit range to its own directory.
+  release-cli:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,15 +44,41 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Released one package at a time, in dependency order. Each reads its own
-      # .releaserc.json, and semantic-release-monorepo narrows the commit range
-      # to commits that touched that package — so a CLI fix cannot bump the
-      # version of a package sitting in someone else's bundle.
       - name: Release trusta
         working-directory: packages/cli
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+  release-react:
+    needs: release-cli
+    # Run even if release-cli failed — that's the whole point. Still ordered
+    # after it (not parallel) because both jobs' semantic-release runs can
+    # push a version-bump commit touching the shared root package-lock.json;
+    # running them at the same time risks one push getting rejected under the
+    # other.
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
 
       - name: Release @trusta-dev/react
         working-directory: packages/react
