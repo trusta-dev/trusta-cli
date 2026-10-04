@@ -27,7 +27,7 @@ import type {
  *
  * Same four components, same rendering — only the fetch moves to the browser.
  * For a SPA or any page without a server render, this is the entry point; on
- * Next, prefer the server components from `@trusta/react`, which cost the
+ * Next, prefer the server components from `@trusta-dev/react`, which cost the
  * visitor nothing.
  *
  * There is no loading spinner. A widget that flashes a spinner on someone's

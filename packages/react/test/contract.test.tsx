@@ -15,7 +15,7 @@ import { fetchTrustCenter, fetchTrustProfile } from '../src/fetch';
  * unit suite that fails when a network is unavailable is a unit suite people
  * learn to ignore:
  *
- *     TRUSTA_LIVE_CONTRACT=1 npm test -w @trusta/react
+ *     TRUSTA_LIVE_CONTRACT=1 npm test -w @trusta-dev/react
  *
  * Worth running on a schedule against production, and before any release.
  */

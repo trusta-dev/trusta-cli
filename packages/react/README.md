@@ -1,9 +1,9 @@
-# @trusta/react
+# @trusta-dev/react
 
 Live trust status, rendered on your own site.
 
 ```tsx
-import { TrustCenter, TrustCard, TrustStrip, TrustBadge } from '@trusta/react';
+import { TrustCenter, TrustCard, TrustStrip, TrustBadge } from '@trusta-dev/react';
 
 <TrustCenter org="northbound" />
 <TrustCard org="northbound" project="payments-svc" />
@@ -14,7 +14,7 @@ import { TrustCenter, TrustCard, TrustStrip, TrustBadge } from '@trusta/react';
 These are React Server Components. They fetch on your server, so there is no
 client-side key, no request from your visitor's browser, and no layout shift.
 For a SPA or any page without a server render, import the same four components
-from `@trusta/react/client`.
+from `@trusta-dev/react/client`.
 
 ## Props
 
