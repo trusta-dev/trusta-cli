@@ -1,6 +1,6 @@
 {
   "name": "@trusta/react",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Live trust status, rendered on your own site.",
   "license": "MIT",
   "main": "dist/index.js",

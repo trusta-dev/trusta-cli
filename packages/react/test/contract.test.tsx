@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { fetchTrustCenter, fetchTrustProfile } from '../src/fetch';
 
 /**
- * Does the live API still return what this package's types claim?
+ * Do the live published objects still hold what this package's types claim?
  *
  * These components declare their own view of the published artifact rather than
  * importing it from the platform, so that a change inside Trusta cannot alter a
@@ -11,7 +11,7 @@ import { fetchTrustCenter, fetchTrustProfile } from '../src/fetch';
  * only worked while both lived in one repository.
  *
  * This is the replacement, and it is the stronger check: it reads the real
- * endpoint rather than a type sitting in the same tree. It is opt-in because a
+ * objects rather than a type sitting in the same tree. It is opt-in because a
  * unit suite that fails when a network is unavailable is a unit suite people
  * learn to ignore:
  *
@@ -23,7 +23,7 @@ import { fetchTrustCenter, fetchTrustProfile } from '../src/fetch';
 const live = process.env['TRUSTA_LIVE_CONTRACT'] === '1';
 const org = process.env['TRUSTA_LIVE_ORG'] ?? 'menico';
 
-describe.skipIf(!live)('live published contract', () => {
+describe.skipIf(!live)('live published objects', () => {
   it('returns a trust center with the fields the components read', async () => {
     const result = await fetchTrustCenter(org);
     expect(result.ok).toBe(true);
@@ -81,7 +81,7 @@ describe.skipIf(!live)('live published contract', () => {
   });
 
   it('does not return anything document-shaped', async () => {
-    // The boundary, checked against the real response rather than a fixture:
+    // The boundary, checked against the real object rather than a fixture:
     // documents are gated and cookie-bound, and nothing about them may reach a
     // component rendering on someone else's domain.
     const center = await fetchTrustCenter(org);
