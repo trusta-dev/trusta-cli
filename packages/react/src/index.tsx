@@ -15,7 +15,7 @@ import {
 import type { TrustEmbedProps, TrustProjectEmbedProps } from './types';
 
 /**
- * `@trusta/react` — live trust status, on your own site.
+ * `@trusta-dev/react` — live trust status, on your own site.
  *
  * These are React Server Components: they fetch on the host's server, so there
  * is no client-side key, no layout shift and no request from the visitor's
@@ -23,7 +23,7 @@ import type { TrustEmbedProps, TrustProjectEmbedProps } from './types';
  * that costs them nothing.
  *
  * For client-side rendering — a SPA, or a page that must not block on the
- * fetch — import the same four components from `@trusta/react/client`.
+ * fetch — import the same four components from `@trusta-dev/react/client`.
  *
  * ## What happens when Trusta is down
  *
